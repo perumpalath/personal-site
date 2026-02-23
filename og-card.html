@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      width: 1200px;
+      height: 630px;
+      overflow: hidden;
+      background: #0a0a0c;
+      font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      color: #f0f0f5;
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+
+    /* Left red accent bar */
+    .accent-bar {
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 5px;
+      background: #b81c1c;
+    }
+
+    /* Dot-grid watermark */
+    .dot-grid {
+      position: absolute;
+      right: 290px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 13px;
+      opacity: 0.08;
+    }
+    .dot-grid span {
+      display: block;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: #f0f0f5;
+    }
+
+    /* Bottom red line */
+    .bottom-line {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(to right, #b81c1c 0%, transparent 100%);
+    }
+
+    .content {
+      padding: 0 72px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .role-label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #b81c1c;
+      margin-bottom: 22px;
+    }
+
+    .name {
+      font-family: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
+      font-size: 80px;
+      letter-spacing: -0.04em;
+      line-height: 0.92;
+      margin-bottom: 30px;
+    }
+    .name .first { font-weight: 600; color: #f0f0f5; }
+    .name .last  { font-weight: 400; font-style: italic; color: #b0b0bc; }
+
+    .tagline {
+      font-size: 18px;
+      color: #55555f;
+      line-height: 1.55;
+      max-width: 480px;
+      margin-bottom: 44px;
+      font-weight: 400;
+    }
+
+    .url {
+      font-family: 'SF Mono', 'Fira Mono', 'Cascadia Code', monospace;
+      font-size: 13px;
+      color: #35353d;
+      letter-spacing: 0.06em;
+    }
+
+    /* Photo */
+    .photo-wrap {
+      width: 260px;
+      flex-shrink: 0;
+      padding-right: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .photo-ring {
+      width: 188px;
+      height: 188px;
+      border-radius: 50%;
+      padding: 3px;
+      background: linear-gradient(135deg, #b81c1c 0%, #3a1010 100%);
+    }
+
+    .photo {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="accent-bar"></div>
+
+  <div class="dot-grid" id="dots"></div>
+
+  <div class="bottom-line"></div>
+
+  <div class="content">
+    <div class="role-label">Senior Software Engineer</div>
+    <div class="name">
+      <span class="first">Avinash</span><br>
+      <span class="last">Perumpalath</span>
+    </div>
+    <div class="tagline">Cloud infrastructure · AWS · Real-time data · Automation</div>
+    <div class="url">perumpalath.com</div>
+  </div>
+
+  <div class="photo-wrap">
+    <div class="photo-ring">
+      <img class="photo" src="headshot.jpg" alt="" />
+    </div>
+  </div>
+
+  <script>
+    const grid = document.getElementById('dots');
+    for (let i = 0; i < 7 * 8; i++) {
+      const s = document.createElement('span');
+      grid.appendChild(s);
+    }
+  </script>
+</body>
+</html>
