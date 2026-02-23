@@ -1,6 +1,6 @@
 # perumpalath.com
 
-Personal website and resume for Avinash Perumpalath, live at [perumpalath.com](https://perumpalath.com).
+Personal website and resume for Avi Perumpalath, live at [perumpalath.com](https://perumpalath.com).
 
 ## What's here
 
