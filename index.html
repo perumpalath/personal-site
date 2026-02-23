@@ -234,7 +234,14 @@
       align-items: flex-start;
       flex-wrap: wrap;
       gap: 0.3rem;
-      margin-bottom: 0.2rem;
+      margin-bottom: 1.1rem;
+    }
+
+    .job-top-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.1rem;
     }
 
     .company-link {
@@ -269,7 +276,6 @@
     .job-loc {
       font-size: 0.73rem;
       color: var(--text-muted);
-      margin-bottom: 1.1rem;
     }
 
     /* ── MULTI-ROLE ── */
@@ -282,10 +288,17 @@
     .sub-role-top {
       display: flex;
       justify-content: space-between;
-      align-items: baseline;
+      align-items: flex-start;
       flex-wrap: wrap;
       gap: 0.2rem;
-      margin-bottom: 0.15rem;
+      margin-bottom: 1.1rem;
+    }
+
+    .sub-role-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.1rem;
     }
 
     /* ── BULLETS ── */
@@ -389,7 +402,7 @@
       align-items: flex-start;
       flex-wrap: wrap;
       gap: 0.3rem;
-      margin-bottom: 0.2rem;
+      margin-bottom: 0.9rem;
     }
 
     .school-link {
@@ -410,7 +423,7 @@
       color: var(--accent);
       text-transform: uppercase;
       letter-spacing: 0.02em;
-      margin: 0.2rem 0 0.8rem;
+      margin-top: 0.2rem;
     }
 
     .honors { display: flex; flex-wrap: wrap; gap: 0.4rem; }
@@ -493,6 +506,7 @@
       .job, .skills-card, .edu-card { padding: 1.3rem 1.3rem; }
 
       .sub-role-top { flex-direction: column; gap: 0.05rem; }
+      .sub-role-right { align-items: flex-start; }
 
       .skill-row { flex-direction: column; gap: 0.4rem; }
       .skill-label { min-width: unset; }
@@ -552,11 +566,15 @@
 
       <div class="job">
         <div class="job-top">
-          <a class="company-link" href="https://www.delta.com" target="_blank" rel="noopener">Delta Air Lines</a>
-          <span class="job-period">Jun 2024 – Present</span>
+          <div>
+            <a class="company-link" href="https://www.delta.com" target="_blank" rel="noopener">Delta Air Lines</a>
+            <div class="job-title">Senior Software Engineer</div>
+          </div>
+          <div class="job-top-right">
+            <span class="job-period">Jun 2024 – Present</span>
+            <div class="job-loc">Atlanta, GA</div>
+          </div>
         </div>
-        <div class="job-title">Senior Software Engineer</div>
-        <div class="job-loc">Atlanta, GA</div>
         <ul class="bullets">
           <li>Leading cloud migration of a real-time passenger and flight record database, modernizing core operational infrastructure.</li>
           <li>Building an internal data platform that aggregates passenger, flight, PNR, and operational data from across Delta into authoritative trip records, served to internal teams and applications via REST APIs.</li>
@@ -566,11 +584,15 @@
 
       <div class="job">
         <div class="job-top">
-          <a class="company-link" href="https://getrhyme.com" target="_blank" rel="noopener">Rhyme</a>
-          <span class="job-period">Jan 2022 – Jun 2024</span>
+          <div>
+            <a class="company-link" href="https://getrhyme.com" target="_blank" rel="noopener">Rhyme</a>
+            <div class="job-title">Software Engineer III</div>
+          </div>
+          <div class="job-top-right">
+            <span class="job-period">Jan 2022 – Jun 2024</span>
+            <div class="job-loc">Remote</div>
+          </div>
         </div>
-        <div class="job-title">Software Engineer III</div>
-        <div class="job-loc">Remote</div>
         <ul class="bullets">
           <li>Developed microservices on AWS Lambda using C#/.NET and Python to automate prior authorizations in healthcare.</li>
           <li>Designed secure REST APIs with API Gateway to interface with backend microservices.</li>
@@ -589,9 +611,11 @@
         <div style="margin-top: 0.6rem;">
           <div class="sub-role-top">
             <div class="job-title" style="margin-bottom:0;">Application Engineer II</div>
-            <span class="job-period">Jun 2020 – Jan 2022</span>
+            <div class="sub-role-right">
+              <span class="job-period">Jun 2020 – Jan 2022</span>
+              <div class="job-loc">Charlotte, NC</div>
+            </div>
           </div>
-          <div class="job-loc">Charlotte, NC</div>
           <ul class="bullets">
             <li>Led migration of the Investment Strategy Group's on-premises MATLAB parallel cluster and financial models to AWS.</li>
             <li>Architected a secure, scalable, cost-effective cloud-native solution using EC2 auto-scaling, S3, DynamoDB, CloudWatch, and Storage Gateway via CloudFormation.</li>
@@ -603,9 +627,11 @@
         <div class="sub-role">
           <div class="sub-role-top">
             <div class="job-title" style="margin-bottom:0;">Application Engineer I</div>
-            <span class="job-period">Jun 2018 – Jun 2020</span>
+            <div class="sub-role-right">
+              <span class="job-period">Jun 2018 – Jun 2020</span>
+              <div class="job-loc">Charlotte, NC</div>
+            </div>
           </div>
-          <div class="job-loc">Charlotte, NC</div>
           <ul class="bullets">
             <li>Deployed ingestion clusters for importing investment data into AWS, enabling analytics for business users via EMR clusters.</li>
             <li>Implemented security controls ensuring encrypted communications, user authentication, and least-privileged access.</li>
@@ -615,9 +641,11 @@
         <div class="sub-role">
           <div class="sub-role-top">
             <div class="job-title" style="margin-bottom:0;">Application Engineer — Intern</div>
-            <span class="job-period">May 2017 – Aug 2017</span>
+            <div class="sub-role-right">
+              <span class="job-period">May 2017 – Aug 2017</span>
+              <div class="job-loc">Malvern, PA</div>
+            </div>
           </div>
-          <div class="job-loc">Malvern, PA</div>
           <ul class="bullets">
             <li>Automated common Bloomberg Terminal processes using Blue Prism, streamlining trader workflows.</li>
             <li>Wrote continuous automated tests using LeanFT to reduce manual testing overhead.</li>
@@ -684,11 +712,15 @@
 
       <div class="edu-card">
         <div class="edu-top">
-          <a class="school-link" href="https://www.cs.uga.edu" target="_blank" rel="noopener">University of Georgia</a>
-          <span class="job-period">May 2018</span>
+          <div>
+            <a class="school-link" href="https://www.cs.uga.edu" target="_blank" rel="noopener">University of Georgia</a>
+            <div class="edu-degree">B.S., Computer Science</div>
+          </div>
+          <div class="job-top-right">
+            <span class="job-period">May 2018</span>
+            <div class="job-loc">Athens, GA</div>
+          </div>
         </div>
-        <div class="edu-degree">B.S., Computer Science</div>
-        <div class="job-loc">Athens, GA</div>
         <div class="honors">
           <span class="honor-tag">Zell Miller Scholarship 2014–2018</span>
           <span class="honor-tag">Wallis Leadership Scholarship 2014</span>

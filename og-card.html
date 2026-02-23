@@ -25,24 +25,6 @@
       background: #b81c1c;
     }
 
-    /* Dot-grid watermark */
-    .dot-grid {
-      position: absolute;
-      right: 290px;
-      top: 50%;
-      transform: translateY(-50%);
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 13px;
-      opacity: 0.08;
-    }
-    .dot-grid span {
-      display: block;
-      width: 4px;
-      height: 4px;
-      border-radius: 50%;
-      background: #f0f0f5;
-    }
 
     /* Bottom red line */
     .bottom-line {
@@ -90,9 +72,25 @@
 
     .url {
       font-family: 'SF Mono', 'Fira Mono', 'Cascadia Code', monospace;
-      font-size: 13px;
-      color: #35353d;
+      font-size: 17px;
+      color: #52525c;
       letter-spacing: 0.06em;
+    }
+
+    /* {} watermark */
+    .brackets {
+      position: absolute;
+      top: -30px;
+      right: -10px;
+      font-family: 'SF Mono', 'Fira Mono', 'Cascadia Code', monospace;
+      font-size: 280px;
+      font-weight: 700;
+      color: #b81c1c;
+      opacity: 0.11;
+      letter-spacing: -0.08em;
+      pointer-events: none;
+      user-select: none;
+      line-height: 1;
     }
 
     /* Photo */
@@ -106,8 +104,8 @@
     }
 
     .photo-ring {
-      width: 220px;
-      height: 220px;
+      width: 248px;
+      height: 248px;
       border-radius: 50%;
       padding: 3px;
       background: linear-gradient(135deg, #b81c1c 0%, #3a1010 100%);
@@ -126,7 +124,7 @@
 <body>
   <div class="accent-bar"></div>
 
-  <div class="dot-grid" id="dots"></div>
+  <div class="brackets">{}</div>
 
   <div class="bottom-line"></div>
 
@@ -146,11 +144,6 @@
   </div>
 
   <script>
-    const grid = document.getElementById('dots');
-    for (let i = 0; i < 7 * 8; i++) {
-      const s = document.createElement('span');
-      grid.appendChild(s);
-    }
   </script>
 </body>
 </html>
