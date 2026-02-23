@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Avi Perumpalath</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --serif: 'New York', 'Iowan Old Style', 'Palatino Linotype', 'URW Palladio L', Palatino, Georgia, serif;
+      --sans:  'SF Pro Display', 'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      --mono:  'SF Mono', 'Fira Mono', 'Cascadia Code', monospace;
+
+      --bg:          #fafafa;
+      --bg-card:     #ffffff;
+      --border:      #e0e0e5;
+      --border-mid:  #c8c8d0;
+      --text:        #1a1a1e;
+      --text-2:      #3a3a42;
+      --text-muted:  #8a8a95;
+      --accent:      #b81c1c;
+      --accent-soft: rgba(184, 28, 28, 0.07);
+      --tag-bg:      #f0f0f5;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg:          #0a0a0c;
+        --bg-card:     #131316;
+        --border:      #25252b;
+        --border-mid:  #35353d;
+        --text:        #f0f0f5;
+        --text-2:      #b0b0bc;
+        --text-muted:  #65656f;
+        --accent:      #e05252;
+        --accent-soft: rgba(224, 82, 82, 0.1);
+        --tag-bg:      #1e1e24;
+      }
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ── LAYOUT ── */
+    .shell {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      min-height: 100vh;
+    }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      padding: 3rem 2.2rem;
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 2.4rem;
+    }
+
+    .sidebar-name { display: flex; flex-direction: column; }
+
+    .name-first {
+      font-family: var(--serif);
+      font-size: 2rem;
+      font-weight: 600;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      color: var(--text);
+    }
+
+    .name-last {
+      font-family: var(--serif);
+      font-size: 2rem;
+      font-weight: 400;
+      font-style: italic;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      color: var(--text);
+    }
+
+    .sidebar-role {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-top: 0.9rem;
+    }
+
+    .sidebar-bio {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    .sidebar-nav { display: flex; flex-direction: column; gap: 0.2rem; list-style: none; }
+
+    .sidebar-nav a {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 0.45rem 0.7rem;
+      border-radius: 6px;
+      transition: background 0.15s, color 0.15s;
+      letter-spacing: 0.01em;
+    }
+
+    .sidebar-nav a:hover { background: var(--accent-soft); color: var(--accent); }
+
+    .sidebar-contact {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      margin-top: auto;
+      padding-top: 1.2rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-family: var(--mono);
+      text-decoration: none;
+      transition: color 0.15s;
+      line-height: 1.4;
+    }
+
+    a.contact-item:hover { color: var(--accent); }
+
+    .contact-icon { font-size: 0.8rem; flex-shrink: 0; line-height: 1; }
+
+    /* ── MAIN ── */
+    main {
+      padding: 3.5rem 3rem 4rem 3.5rem;
+      max-width: 680px;
+    }
+
+    /* ── SECTIONS ── */
+    .section {
+      margin-bottom: 4.5rem;
+      opacity: 0;
+      animation: rise 0.65s ease forwards;
+    }
+
+    .section:nth-child(1) { animation-delay: 0.1s; }
+    .section:nth-child(2) { animation-delay: 0.2s; }
+    .section:nth-child(3) { animation-delay: 0.3s; }
+    .section:nth-child(4) { animation-delay: 0.4s; }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .section-label {
+      font-family: var(--serif);
+      font-size: 1.55rem;
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      white-space: nowrap;
+    }
+
+    .section-line { flex: 1; height: 1px; background: var(--border); }
+
+    /* ── JOB CARD ── */
+    .job {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.6rem 1.8rem;
+      margin-bottom: 1rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .job:last-child { margin-bottom: 0; }
+
+    .job:hover {
+      border-color: var(--border-mid);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .job:hover { box-shadow: 0 4px 24px rgba(0,0,0,0.4); }
+    }
+
+    .job-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .company-link {
+      font-family: var(--serif);
+      font-size: 1.08rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .company-link:hover { color: var(--accent); }
+
+    .job-period {
+      font-size: 0.73rem;
+      color: var(--text-muted);
+      font-family: var(--mono);
+      white-space: nowrap;
+      padding-top: 0.15rem;
+    }
+
+    .job-title {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0.02em;
+      margin-bottom: 0.15rem;
+      text-transform: uppercase;
+    }
+
+    .job-loc {
+      font-size: 0.73rem;
+      color: var(--text-muted);
+      margin-bottom: 1.1rem;
+    }
+
+    /* ── MULTI-ROLE ── */
+    .sub-role {
+      padding-top: 1.3rem;
+      margin-top: 1.3rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .sub-role-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 0.2rem;
+      margin-bottom: 0.15rem;
+    }
+
+    /* ── BULLETS ── */
+    .bullets { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
+
+    .bullets li {
+      font-size: 0.855rem;
+      color: var(--text-2);
+      padding-left: 1rem;
+      position: relative;
+      line-height: 1.6;
+    }
+
+    .bullets li::before { content: '–'; position: absolute; left: 0; color: var(--text-muted); }
+
+    /* ── SKILLS ── */
+    .skills-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.6rem 1.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .skill-row { display: flex; gap: 1rem; align-items: baseline; flex-wrap: wrap; }
+
+    .skill-label {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      min-width: 82px;
+      flex-shrink: 0;
+    }
+
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+
+    .tag {
+      font-size: 0.78rem;
+      background: var(--tag-bg);
+      color: var(--text-2);
+      border-radius: 5px;
+      padding: 0.2rem 0.6rem;
+      font-weight: 400;
+      border: 1px solid var(--border);
+      transition: border-color 0.15s, color 0.15s;
+    }
+
+    .tag:hover { border-color: var(--accent); color: var(--accent); }
+
+    .skills-divider { height: 1px; background: var(--border); }
+
+    .cert-row { display: flex; align-items: center; gap: 0.6rem; }
+
+    .cert-pip {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .cert-text { font-size: 0.82rem; color: var(--text-2); }
+
+    /* ── EDUCATION ── */
+    .edu-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.6rem 1.8rem;
+    }
+
+    .edu-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .school-link {
+      font-family: var(--serif);
+      font-size: 1.08rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .school-link:hover { color: var(--accent); }
+
+    .edu-degree {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      margin: 0.2rem 0 0.8rem;
+    }
+
+    .honors { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+
+    .honor-tag {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      background: var(--tag-bg);
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      padding: 0.2rem 0.6rem;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      margin-top: 1rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+
+    footer p {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      font-family: var(--mono);
+    }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 720px) {
+      .shell { grid-template-columns: 1fr; }
+
+      .sidebar {
+        position: static;
+        height: auto;
+        overflow: visible;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        padding: 2.2rem 1.5rem 2rem;
+        gap: 1.6rem;
+      }
+
+      .name-first, .name-last { font-size: 1.7rem; }
+
+      .sidebar-nav {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 0.3rem;
+      }
+
+      .sidebar-nav a {
+        padding: 0.3rem 0.75rem;
+        background: var(--tag-bg);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        font-size: 0.76rem;
+      }
+
+      .sidebar-contact {
+        margin-top: 0;
+        flex-direction: row;
+        flex-wrap: wrap;
+        column-gap: 1.2rem;
+        row-gap: 0.5rem;
+      }
+
+      main {
+        padding: 2rem 1.5rem 3rem;
+        max-width: 100%;
+      }
+
+      .section-label { font-size: 1.3rem; }
+
+      .job, .skills-card, .edu-card { padding: 1.3rem 1.3rem; }
+
+      .sub-role-top { flex-direction: column; gap: 0.05rem; }
+
+      .skill-row { flex-direction: column; gap: 0.4rem; }
+      .skill-label { min-width: unset; }
+    }
+
+    @media (max-width: 400px) {
+      .name-first, .name-last { font-size: 1.45rem; }
+      main { padding: 1.6rem 1rem 2.5rem; }
+      .sidebar { padding: 1.8rem 1rem 1.6rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="shell">
+
+  <aside class="sidebar">
+    <div>
+      <div class="sidebar-name">
+        <span class="name-first">Avinash</span>
+        <span class="name-last">Perumpalath</span>
+      </div>
+      <div class="sidebar-role">Senior Software Engineer</div>
+    </div>
+
+    <p class="sidebar-bio">
+      Avi is a cloud infrastructure and backend systems engineer with a focus on AWS, real-time data, and automation. Currently modernizing core operational systems at Delta Air Lines. <br> <br>
+      He lives in Kennesaw, GA with his wife and three young kids.
+    </p>
+
+    <ul class="sidebar-nav">
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#education">Education</a></li>
+    </ul>
+
+    <div class="sidebar-contact">
+      <a class="contact-item" href="mailto:avinash@perumpalath.com">
+        <span class="contact-icon">✉️</span>avinash@perumpalath.com
+      </a>
+      <a class="contact-item" href="https://linkedin.com/in/perumpalath" target="_blank" rel="noopener">
+        <span class="contact-icon">💼</span>LinkedIn
+      </a>
+      <a class="contact-item" href="https://maps.apple/p/v0.0VPp2Fw0zfu" target="_blank" rel="noopener">
+        <span class="contact-icon">📍</span>Kennesaw, GA
+      </a>
+    </div>
+  </aside>
+
+  <main>
+
+    <div class="section" id="experience">
+      <div class="section-header">
+        <h2 class="section-label">Experience</h2>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="job">
+        <div class="job-top">
+          <a class="company-link" href="https://www.delta.com" target="_blank" rel="noopener">Delta Air Lines</a>
+          <span class="job-period">Jun 2024 – Present</span>
+        </div>
+        <div class="job-title">Senior Software Engineer</div>
+        <div class="job-loc">Atlanta, GA</div>
+        <ul class="bullets">
+          <li>Leading cloud migration of a real-time passenger and flight record database, modernizing core operational infrastructure.</li>
+          <li>Helping lead AI integration efforts, identifying and implementing opportunities to bring intelligent automation into airline systems.</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div class="job-top">
+          <a class="company-link" href="https://getrhyme.com" target="_blank" rel="noopener">Rhyme Software Corporation</a>
+          <span class="job-period">Jan 2022 – Jun 2024</span>
+        </div>
+        <div class="job-title">Software Engineer III</div>
+        <div class="job-loc">Remote</div>
+        <ul class="bullets">
+          <li>Developed microservices on AWS Lambda using C#/.NET and Python to automate prior authorizations in healthcare.</li>
+          <li>Designed secure REST APIs with API Gateway to interface with backend microservices.</li>
+          <li>Conducted data analysis using NumPy and Pandas in collaboration with the data science team.</li>
+          <li>Built a CloudWatch → Databricks pipeline via AWS Kinesis for real-time data analysis and monitoring.</li>
+          <li>Engineered an anomaly detection system on Databricks, improving data reliability and system responsiveness.</li>
+          <li>Deployed AWS infrastructure across multiple project architectures using Terraform.</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div class="job-top">
+          <a class="company-link" href="https://corporate.vanguard.com/content/corporatesite/us/en/corp/why-vanguard/who-we-are/index.html" target="_blank" rel="noopener">The Vanguard Group</a>
+          <span class="job-period">May 2017 – Jan 2022</span>
+        </div>
+
+        <div style="margin-top: 0.6rem;">
+          <div class="sub-role-top">
+            <div class="job-title" style="margin-bottom:0;">Application Engineer II</div>
+            <span class="job-period">Jun 2020 – Jan 2022</span>
+          </div>
+          <div class="job-loc">Charlotte, NC</div>
+          <ul class="bullets">
+            <li>Led migration of the Investment Strategy Group's on-premises MATLAB parallel cluster and financial models to AWS.</li>
+            <li>Architected a secure, scalable, cost-effective cloud-native solution using EC2 auto-scaling, S3, DynamoDB, CloudWatch, and Storage Gateway via CloudFormation.</li>
+            <li>Developed a proof-of-concept financial-model-as-a-service product enabling users to execute MATLAB models via a web front-end on AWS.</li>
+            <li>Mentored two junior developers in AWS cloud development practices.</li>
+          </ul>
+        </div>
+
+        <div class="sub-role">
+          <div class="sub-role-top">
+            <div class="job-title" style="margin-bottom:0;">Application Engineer I</div>
+            <span class="job-period">Jun 2018 – Jun 2020</span>
+          </div>
+          <div class="job-loc">Charlotte, NC</div>
+          <ul class="bullets">
+            <li>Deployed ingestion clusters for importing investment data into AWS, enabling analytics for business users via EMR clusters.</li>
+            <li>Implemented security controls ensuring encrypted communications, user authentication, and least-privileged access.</li>
+          </ul>
+        </div>
+
+        <div class="sub-role">
+          <div class="sub-role-top">
+            <div class="job-title" style="margin-bottom:0;">Application Engineer — Intern</div>
+            <span class="job-period">May 2017 – Aug 2017</span>
+          </div>
+          <div class="job-loc">Malvern, PA</div>
+          <ul class="bullets">
+            <li>Automated common Bloomberg Terminal processes using Blue Prism, streamlining trader workflows.</li>
+            <li>Wrote continuous automated tests using LeanFT to reduce manual testing overhead.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="skills">
+      <div class="section-header">
+        <h2 class="section-label">Skills</h2>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="skills-card">
+        <div class="skill-row">
+          <span class="skill-label">Languages</span>
+          <div class="skill-tags">
+            <span class="tag">Python</span>
+            <span class="tag">C#/.NET</span>
+            <span class="tag">JavaScript</span>
+            <span class="tag">Node.js</span>
+            <span class="tag">Java</span>
+            <span class="tag">SQL</span>
+          </div>
+        </div>
+        <div class="skill-row">
+          <span class="skill-label">Data</span>
+          <div class="skill-tags">
+            <span class="tag">Pandas</span>
+            <span class="tag">NumPy</span>
+            <span class="tag">Databricks</span>
+          </div>
+        </div>
+        <div class="skill-row">
+          <span class="skill-label">Cloud</span>
+          <div class="skill-tags">
+            <span class="tag">AWS</span>
+            <span class="tag">Terraform</span>
+            <span class="tag">Docker</span>
+          </div>
+        </div>
+        <div class="skill-row">
+          <span class="skill-label">Tools</span>
+          <div class="skill-tags">
+            <span class="tag">Git</span>
+            <span class="tag">GitLab</span>
+            <span class="tag">Azure DevOps</span>
+            <span class="tag">Unix</span>
+          </div>
+        </div>
+        <div class="skills-divider"></div>
+        <div class="cert-row">
+          <span class="cert-pip"></span>
+          <span class="cert-text">AWS Certified Solutions Architect – Associate</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="education">
+      <div class="section-header">
+        <h2 class="section-label">Education</h2>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="edu-card">
+        <div class="edu-top">
+          <a class="school-link" href="https://www.cs.uga.edu" target="_blank" rel="noopener">University of Georgia</a>
+          <span class="job-period">May 2018</span>
+        </div>
+        <div class="edu-degree">B.S., Computer Science · Athens, GA</div>
+        <div class="honors">
+          <span class="honor-tag">Zell Miller Scholarship 2014–2018</span>
+          <span class="honor-tag">Wallis Leadership Scholarship 2014</span>
+          <span class="honor-tag">Dean's List 2016–2018</span>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <p>&#169; 2026 Avinash B. Perumpalath</p>
+      <p>&#10013; Ad Maiorem Dei Gloriam</p>
+    </footer>
+
+  </main>
+</div>
+</body>
+</html>
