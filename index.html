@@ -70,6 +70,21 @@
       gap: 2.4rem;
     }
 
+    /* ── HEADSHOT ── */
+    .headshot {
+      width: 88px;
+      height: 88px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center top;
+      border: 2px solid var(--border);
+      display: block;
+      margin-bottom: 0.75rem;
+      transition: border-color 0.2s;
+    }
+
+    .headshot:hover { border-color: var(--border-mid); }
+
     .sidebar-name { display: flex; flex-direction: column; }
 
     .name-first {
@@ -265,17 +280,34 @@
     }
 
     /* ── BULLETS ── */
-    .bullets { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
+    .bullets {
+      list-style: none;
+      padding-left: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+    }
 
     .bullets li {
       font-size: 0.855rem;
       color: var(--text-2);
-      padding-left: 1rem;
-      position: relative;
       line-height: 1.6;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
     }
 
-    .bullets li::before { content: '–'; position: absolute; left: 0; color: var(--text-muted); }
+    .bullets li::before {
+      content: '';
+      width: 0.35em;
+      height: 0.35em;
+      min-width: 5px;
+      min-height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+      transform: translateZ(0);
+    }
 
     /* ── SKILLS ── */
     .skills-card {
@@ -317,10 +349,16 @@
 
     .skills-divider { height: 1px; background: var(--border); }
 
-    .cert-row { display: flex; align-items: center; gap: 0.6rem; }
+    .cert-row {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
 
-    .cert-pip {
-      width: 7px; height: 7px;
+    .cert-row::before {
+      content: '';
+      width: 0.35em;
+      height: 0.35em;
       border-radius: 50%;
       background: var(--accent);
       flex-shrink: 0;
@@ -388,6 +426,7 @@
       font-size: 0.7rem;
       color: var(--text-muted);
       font-family: var(--mono);
+      line-height: 1.9;
     }
 
     @keyframes rise {
@@ -408,6 +447,8 @@
         padding: 2.2rem 1.5rem 2rem;
         gap: 1.6rem;
       }
+
+      .headshot { width: 72px; height: 72px; margin-bottom: 0.5rem; }
 
       .name-first, .name-last { font-size: 1.7rem; }
 
@@ -460,6 +501,7 @@
 
   <aside class="sidebar">
     <div>
+      <img class="headshot" src="headshot.jpg" alt="Avi Perumpalath" />
       <div class="sidebar-name">
         <span class="name-first">Avinash</span>
         <span class="name-last">Perumpalath</span>
@@ -468,7 +510,7 @@
     </div>
 
     <p class="sidebar-bio">
-      Avi is a cloud infrastructure and backend systems engineer with a focus on AWS, real-time data, and automation. Currently modernizing core operational systems at Delta Air Lines. <br> <br>
+      Avi is a cloud infrastructure and backend systems engineer with a focus on AWS, real-time data, and automation. Currently modernizing core operational systems at Delta Air Lines.<br><br>
       He lives in Kennesaw, GA with his wife and three young kids.
     </p>
 
@@ -479,8 +521,8 @@
     </ul>
 
     <div class="sidebar-contact">
-      <a class="contact-item" href="mailto:avinash@perumpalath.com">
-        <span class="contact-icon">✉️</span>avinash@perumpalath.com
+      <a class="contact-item" href="/cdn-cgi/l/email-protection#5332253a3d32203b13233621263e23323f32273b7d303c3e">
+        <span class="contact-icon">✉️</span><span class="__cf_email__" data-cfemail="3b5a4d52555a48537b4b5e494e564b5a575a4f5315585456">[email&#160;protected]</span>
       </a>
       <a class="contact-item" href="https://linkedin.com/in/perumpalath" target="_blank" rel="noopener">
         <span class="contact-icon">💼</span>LinkedIn
@@ -532,7 +574,6 @@
       <div class="job">
         <div class="job-top">
           <a class="company-link" href="https://corporate.vanguard.com/content/corporatesite/us/en/corp/why-vanguard/who-we-are/index.html" target="_blank" rel="noopener">The Vanguard Group</a>
-          <span class="job-period">May 2017 – Jan 2022</span>
         </div>
 
         <div style="margin-top: 0.6rem;">
@@ -620,7 +661,6 @@
         </div>
         <div class="skills-divider"></div>
         <div class="cert-row">
-          <span class="cert-pip"></span>
           <span class="cert-text">AWS Certified Solutions Architect – Associate</span>
         </div>
       </div>
@@ -645,6 +685,7 @@
         </div>
       </div>
     </div>
+
 
     <footer>
       <p>&#169; 2026 Avinash B. Perumpalath</p>
